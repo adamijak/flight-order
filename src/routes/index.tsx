@@ -1,20 +1,30 @@
-import { Title } from "solid-start";
-import Counter from "~/components/Counter";
-
-export default function Home() {
+export default () => {
   return (
     <main>
-      <Title>Hello World</Title>
-      <h1>Hello world!</h1>
-      <Counter />
-      <p>
-        TEST-2
-        Visit{" "}
-        <a href="https://start.solidjs.com" target="_blank">
-          start.solidjs.com
-        </a>{" "}
-        to learn how to build SolidStart apps.
-      </p>
+      <div>
+        <span>First name:</span>
+        <input></input>
+      </div>
+      <div>
+        <span>Last name:</span>
+        <input></input>
+      </div>
+      <div>
+        <span>Email:</span>
+        <input></input>
+      </div>
+      <div>
+        <span>Birth date:</span>
+        <input type="date"></input>
+      </div>
+      <div>
+        <span>Destination:</span>
+        <input></input>
+      </div>
+      <div>
+        <span>Discount:</span>
+        <input></input>
+      </div>
     </main>
   );
 }
