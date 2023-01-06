@@ -1,0 +1,64 @@
+@page
+@model WebApp.Pages.Orders.IndexModel
+@{
+    ViewData["Title"] = "Orders";
+}
+<h1 class="mb-3">@ViewData["Title"]</h1>
+<div x-cloak
+     x-data="{
+        search: '',
+        orders: [],
+        isLoading: true,
+        getOrders() {
+            fetch('/api/orders?' + new URLSearchParams({search: this.search}))
+                .then(response => response.json())
+                .then(response => { this.orders = response; this.isLoading = false;})
+        }
+     }"
+     x-init="getOrders">
+    
+    <span x-show="isLoading" class="mb-3">Loading...</span>
+    <div x-show="!isLoading" class="mb-3">
+        <div class="row">
+            <div class="col-lg-8 col-md-6 col-0"></div>
+            <div class="col-lg-4 col-md-6 col-12"><div class="form-floating">
+    <input type="text" x-on:change="search = $el.value; getOrders()" class="form-control" id="search" placeholder="Search">
+    <label for="search">Search</label>
+</div></div>
+            
+        </div>
+        <div class="table-responsive-lg">
+            <table class="table table-striped text-nowrap">
+                <thead>
+                    <tr>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Birth date</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="order in orders" :key="order.id">
+                        <tr>
+                            <td x-text="order.firstName" scope="row"></td>
+                            <td x-text="order.lastName"></td>
+                            <td x-text="order.email"></td>
+                            <td x-text="order.birthDate"></td>
+                            <td x-text="order.destination"></td>
+                            <td x-text="order.discount"></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Action">
+                                    <a type="button" class="btn btn-sm btn-warning" x-bind:href="'Orders/Edit/'+ order.id">Edit</a>
+                                    <button type="button" class="btn btn-sm btn-danger" x-on:click="await fetch('/api/orders/' + order.id, { method: 'DELETE' }); await getOrders();">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
