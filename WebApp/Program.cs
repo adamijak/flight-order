@@ -15,7 +15,7 @@ builder.Services.AddControllers()
 
 
 BsonSerializer.RegisterSerializer(new DateOnlySerializer());
-builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017/test"));
+builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://db:27017/test"));
 
 var app = builder.Build();
 
