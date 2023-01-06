@@ -4,10 +4,9 @@ services:
   webapp:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersesecrets:/root/.microsoft/usersecrets:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
