@@ -34,13 +34,13 @@ public class OrdersController : ControllerBase
 
         var regex = BsonRegularExpression.Create(search);
         var builder = Builders<Order>.Filter;
+        // TODO fix search
         return (await orderCollection.FindAsync<Order>(
             builder.Regex(o => o.Id, regex) |
             builder.Regex(o => o.FirstName, regex) |
             builder.Regex(o => o.LastName, regex) |
             builder.Regex(o => o.Email, regex) |
             builder.Regex(o => o.BirthDate, regex) |
-            builder.Regex(o => o.Destination, regex) |
             builder.Regex(o => o.Discount,regex))).ToEnumerable<Order>();
     }
 

@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Common;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddControllers()
 
 BsonSerializer.RegisterSerializer(new DateOnlySerializer());
 builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://db:27017/test"));
+builder.Services.AddSingleton(new FlightService("Data/Flights.json"));
 
 var app = builder.Build();
 

@@ -11,10 +11,10 @@ public class Order
     public string? LastName { get; set; }
     public string? Email { get; set; }
     public DateOnly BirthDate { get; set; }
-    //TODO use enum
-    public string? Destination { get; set; }
-    //TODO use enum
+    public Flight Flight { get; set; } = new();
+    public string? Coupon { get; set; }
     [BsonRepresentation(BsonType.String)]
     public Discount Discount { get; set; }
+    public int TotalPrice { get; set; }
 }
 
