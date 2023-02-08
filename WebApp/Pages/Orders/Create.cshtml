@@ -6,12 +6,13 @@
 }
 <script>document.addEventListener('alpine:init', () => {
         Alpine.data('flights', () => ({
-            destination: '',
+            from: '',
+            to: '',
             dateTime: '',
             flights: [],
             isLoading: true,
             getFlights() {
-                fetch('/api/flights?' + new URLSearchParams({ destination: this.destination, dateTime: this.dateTime }).toString())
+                fetch('/api/flights?' + new URLSearchParams({ from: this.from, to: this.to, dateTime: this.dateTime }).toString())
                     .then(response =>
                         response.json())
                     .then(response => { this.flights = response; this.isLoading = false; });
@@ -65,8 +66,12 @@
                 <div class="accordion-body">
                     <div x-cloak x-data="flights">
                         <div class="form-floating mb-3">
-                            <select asp-items="Html.GetEnumSelectList<Destination>()" class="form-select" id="destination" x-on:change="getFlights" x-model="destination"></select>
-                            <label for="destination">Destination</label>
+                            <select asp-items="Html.GetEnumSelectList<Destination>()" class="form-select" id="from" x-on:change="getFlights" x-model="from"></select>
+                            <label for="from">From</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select asp-items="Html.GetEnumSelectList<Destination>()" class="form-select" id="to" x-on:change="getFlights" x-model="to"></select>
+                            <label for="to">To</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="flightDate" min="2023-01-01" max="2023-01-31" x-on:change="getFlights" x-model="dateTime" />

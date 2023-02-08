@@ -22,14 +22,14 @@ public class FlightsController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Flight> Get([FromQuery]Destination? destination, [FromQuery]DateTime dateTime)
+    public IEnumerable<Flight> Get([FromQuery] Destination? from, [FromQuery]Destination? to, [FromQuery]DateTime dateTime)
     {
-        if (destination is null && dateTime == default)
+        if (from is null || to is null || dateTime == default)
         {
             return Array.Empty<Flight>();
         }
 
-        return flightService.Flights.Where(i => (i.To == destination) && (dateTime.Date <= i.DateTime && i.DateTime <= dateTime.Date.AddDays(1)));
+        return flightService.Flights.Where(i => i.From == from && i.To == to && dateTime.Date <= i.DateTime && i.DateTime <= dateTime.Date.AddDays(1));
     }
 
     [HttpGet("{id}")]

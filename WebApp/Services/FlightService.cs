@@ -36,17 +36,19 @@ namespace WebApp.Services
 
             for (var i = 0; i < flightCount; i++)
             {
+                var from = random.Next(destinations.Length);
+                var to = (from + 1 + random.Next(destinations.Length-1))%destinations.Length;
                 values.Add(new Flight
                 {
                     Id = Guid.NewGuid().ToString(),
-                    From = Destination.Prague,
-                    To = (Destination)random.Next(1, destinations.Length),
+                    From = (Destination) from,
+                    To = (Destination) to,
                     DateTime = dateTime.AddMinutes(random.NextInt64(0, offset)),
                     Price = random.Next(100, 500),
                 });
             }
 
-            using var stream = System.IO.File.OpenWrite(path);
+            using var stream = System.IO.File.Open(path, FileMode.Create);
             JsonSerializer.Serialize(stream, values);
         }
 	}
