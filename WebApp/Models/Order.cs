@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Common;
 using WebApp.Entities;
 
 namespace WebApp.Models
@@ -38,6 +39,11 @@ namespace WebApp.Models
             if(BirthDate.Value.AddYears(150) < now)
             {
                 yield return new ValidationResult("Customer can not be older than 150 years.");
+            }
+
+            if (Coupon is not null && !Globals.AcceptedCoupons.ContainsKey(Coupon))
+            {
+                yield return new ValidationResult("Invalid coupon.");
             }
 
             if (Discount == Discount.Student && BirthDate.Value.AddYears(26) < now)
