@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json;
+using Common;
 using WebApp.Entities;
 
 namespace WebApp.Services
@@ -16,7 +17,7 @@ namespace WebApp.Services
 		{
             this.path = path;
             using var stream = System.IO.File.OpenRead(path);
-            var values = JsonSerializer.Deserialize<Flight[]>(stream);
+            var values = JsonSerializer.Deserialize<Flight[]>(stream, Globals.JsonSerializerOptions);
             if (values is null)
             {
                 throw new NullReferenceException();
@@ -49,7 +50,7 @@ namespace WebApp.Services
             }
 
             using var stream = System.IO.File.Open(path, FileMode.Create);
-            JsonSerializer.Serialize(stream, values);
+            JsonSerializer.Serialize(stream, values, Globals.JsonSerializerOptions);
         }
 	}
 }

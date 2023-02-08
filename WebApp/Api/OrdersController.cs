@@ -34,14 +34,21 @@ public class OrdersController : ControllerBase
 
         var regex = BsonRegularExpression.Create(search);
         var builder = Builders<Order>.Filter;
-        // TODO fix search
+
+        // TODO fix search, mongodb can not regex search on non string values (o.Flight.DateTime, o.Flight.Price, o.TotalPrice)
         return (await orderCollection.FindAsync<Order>(
             builder.Regex(o => o.Id, regex) |
             builder.Regex(o => o.FirstName, regex) |
             builder.Regex(o => o.LastName, regex) |
             builder.Regex(o => o.Email, regex) |
             builder.Regex(o => o.BirthDate, regex) |
-            builder.Regex(o => o.Discount,regex))).ToEnumerable<Order>();
+            builder.Regex(o => o.Coupon, regex) |
+            builder.Regex(o => o.Discount,regex) |
+            builder.Regex(o => o.Flight.From, regex) |
+            builder.Regex(o => o.Flight.To, regex) |
+            builder.Regex(o => o.Flight.DateTime, regex) |
+            builder.Regex(o => o.Flight.Price, regex) |
+            builder.Regex(o => o.TotalPrice, regex))).ToEnumerable<Order>();
     }
 
     [HttpDelete("{id}")]

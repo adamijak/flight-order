@@ -58,6 +58,7 @@ public class CreateModel : PageModel
             Coupon = Order.Coupon,
             Discount = Order.Discount,
             Flight = flight,
+            TotalPrice = flight.Price,
         };
 
         if (Order.Coupon is not null)
