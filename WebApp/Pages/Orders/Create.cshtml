@@ -4,10 +4,11 @@
 @{
     ViewData["Title"] = "New order";
 }
-<script>document.addEventListener('alpine:init', () => {
+<script>
+document.addEventListener('alpine:init', () => {
         Alpine.data('flights', () => ({
-            from: '',
-            to: '',
+            from: '@Destination.Prague.ToString()',
+            to: '@Destination.Prague.ToString()',
             dateTime: '',
             flights: [],
             isLoading: true,
