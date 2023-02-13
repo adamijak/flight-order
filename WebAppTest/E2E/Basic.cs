@@ -13,7 +13,7 @@ public class Basic
         driver.Navigate().GoToUrl("http://localhost/Orders/Create");
         // find id firstName
         driver.FindElement(By.Id("firstName")).SendKeys("John");
-        System.Threading.Thread.Sleep(5000);
+        System.Threading.Thread.Sleep(2000);
         driver.Quit();
     }
 }
