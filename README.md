@@ -9,6 +9,10 @@ navigate to root folder of application and run following command:
 
 `docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
 
+To run test navigate to root folder of application and run:
+
+`docker-compose -f docker-compose.test.yml up --exit-code-from webapptest`
+
 Then you can open your browser on:
 
 `http://localhost`
