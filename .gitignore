@@ -477,4 +477,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # Drivers
-geckodriver
+**/geckodriver
