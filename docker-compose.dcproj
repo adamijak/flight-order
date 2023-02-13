@@ -16,5 +16,6 @@
     <None Include=".dockerignore" />
     <None Include="docker-compose.prod.yml" />
     <None Include="docker-compose.test.yml" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>
