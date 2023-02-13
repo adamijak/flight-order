@@ -478,3 +478,8 @@ $RECYCLE.BIN/
 
 # Drivers
 **/geckodriver
+**/geckodriver.exe
+
+# Test binaries
+WebAppTest/bin/
+WebAppTest/obj/
