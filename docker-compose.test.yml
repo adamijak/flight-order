@@ -9,14 +9,11 @@ services:
     depends_on:
       - webapp
   webapp:
-    image: ${DOCKER_REGISTRY-}webapp
-    build:
-      context: .
-      dockerfile: WebApp/Dockerfile
-  db:
-    image: mongo:latest
-    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "80:80"
     volumes:
-      - mongodb-data:/data/db
-volumes:
-  mongodb-data:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro

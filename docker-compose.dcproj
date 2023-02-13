@@ -16,8 +16,5 @@
     <None Include=".dockerignore" />
     <None Include="docker-compose.prod.yml" />
     <None Include="docker-compose.test.yml" />
-    <None Include="docker-compose.test.override.yml">
-      <DependentUpon>docker-compose.test.yml</DependentUpon>
-    </None>
   </ItemGroup>
 </Project>

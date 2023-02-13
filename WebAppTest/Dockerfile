@@ -7,4 +7,4 @@ COPY ["Common/Common.csproj", "Common/"]
 RUN dotnet restore "WebAppTest/WebAppTest.csproj"
 
 COPY . .
-RUN dotnet test WebAppTest/WebAppTest.csproj -c Release
+ENTRYPOINT ["dotnet", "test", "WebAppTest/WebAppTest.csproj", "-c", "Release"]
