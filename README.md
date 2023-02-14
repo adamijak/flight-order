@@ -1,4 +1,4 @@
-# FlightOrder
+# FlightOrder ![tests](https://github.com/adamijak/flight-order/actions/workflows/tests.yml/badge.svg)
 
 ## Installation
 
