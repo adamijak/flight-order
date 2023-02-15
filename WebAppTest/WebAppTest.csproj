@@ -25,6 +25,7 @@
 	  <None Remove="Unit\" />
 	  <None Remove="Data\" />
 	  <None Remove="Entities\" />
+	  <None Remove="Unit\FlightService\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="geckodriver">
@@ -37,5 +38,6 @@
 	  <Folder Include="Unit\" />
 	  <Folder Include="Data\" />
 	  <Folder Include="Entities\" />
+	  <Folder Include="Unit\FlightService\" />
 	</ItemGroup>
 </Project>

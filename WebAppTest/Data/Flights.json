@@ -1,0 +1,72 @@
+﻿[
+    {
+        "id": "89b5161b-1c9e-4c4b-9061-16e831ec0d95",
+        "dateTime": "2023-01-01T08:12:00",
+        "from": "Sydney",
+        "to": "NewYork",
+        "price": 416
+    },
+    {
+        "id": "1adae7b8-39fa-4ce8-bc42-2c7e52d2d7ec",
+        "dateTime": "2023-01-24T13:15:00",
+        "from": "Krakow",
+        "to": "Sydney",
+        "price": 283
+    },
+    {
+        "id": "caed89cf-b332-4634-95e0-7eddb8606170",
+        "dateTime": "2023-01-01T19:19:00",
+        "from": "Prague",
+        "to": "Krakow",
+        "price": 460
+    },
+    {
+        "id": "8dd0b33f-2833-4a56-8389-3b8e462145ce",
+        "dateTime": "2023-01-21T03:34:00",
+        "from": "Prague",
+        "to": "SanFrancisco",
+        "price": 129
+    },
+    {
+        "id": "bcc89443-057c-4192-88f9-1ae93de9fb8d",
+        "dateTime": "2023-01-30T18:09:00",
+        "from": "Sydney",
+        "to": "Prague",
+        "price": 228
+    },
+    {
+        "id": "4227d489-adec-4d70-b577-48f097a3569e",
+        "dateTime": "2023-01-08T20:17:00",
+        "from": "NewYork",
+        "to": "Prague",
+        "price": 354
+    },
+    {
+        "id": "c5b21759-6f95-4a45-bfc3-4d5ebc954a36",
+        "dateTime": "2023-01-04T01:13:00",
+        "from": "Prague",
+        "to": "NewYork",
+        "price": 335
+    },
+    {
+        "id": "a582c815-4b02-43c0-ae23-b4db868208db",
+        "dateTime": "2023-01-09T06:19:00",
+        "from": "Krakow",
+        "to": "Sydney",
+        "price": 279
+    },
+    {
+        "id": "70b160b0-7ca6-4378-b584-d464ffa198da",
+        "dateTime": "2023-01-05T14:25:00",
+        "from": "NewYork",
+        "to": "Sydney",
+        "price": 418
+    },
+    {
+        "id": "d5d37fe0-165f-4274-aa32-4e93400e9cde",
+        "dateTime": "2023-01-08T16:34:00",
+        "from": "NewYork",
+        "to": "Prague",
+        "price": 199
+    }
+]
