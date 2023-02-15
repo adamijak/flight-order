@@ -23,6 +23,8 @@
 	<ItemGroup>
 	  <None Remove="E2E\" />
 	  <None Remove="Unit\" />
+	  <None Remove="Data\" />
+	  <None Remove="Entities\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="geckodriver">
@@ -33,5 +35,7 @@
 	<ItemGroup>
 	  <Folder Include="E2E\" />
 	  <Folder Include="Unit\" />
+	  <Folder Include="Data\" />
+	  <Folder Include="Entities\" />
 	</ItemGroup>
 </Project>
