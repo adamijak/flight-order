@@ -31,7 +31,7 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="E2E\" />
+	  <Folder Include="Data\" />
 	  <Folder Include="Unit\" />
 	</ItemGroup>
 </Project>
