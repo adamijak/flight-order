@@ -1,0 +1,3 @@
+firstName,lastName,email,birthDate,id,from,to,flightDateTime,coupon,discount
+pepa,dvorak,pepa.dvorak@email.cz,20.08.1999,caed89cf-b332-4634-95e0-7eddb8606170,Prague,Krakow,2023-01-01T19:19:00Z,,Student
+antonin,dloubal,haha.nedam,12.04.2000,caed89cf-b332-4634-95e0-7eddb8606170,Prague,Krakow,2023-01-01T19:19:00Z,,Student

@@ -21,6 +21,8 @@
 		<ProjectReference Include="..\WebApp\WebApp.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Remove="Data\SuccessfulNewOrderSubmit.csv" />
+	  <None Remove="Data\ValidFlights.csv" />
 	  <None Remove="E2E\" />
 	  <None Remove="Unit\" />
 	</ItemGroup>
@@ -31,7 +33,14 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Data\" />
 	  <Folder Include="Unit\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="Data\SuccessfulNewOrderSubmit.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Data\ValidFlights.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System name="NewOrder">
+  <Parameters>
+    <Parameter id="0" name="FirstName" type="1">
+      <values>
+        <value>Pepa</value>
+      </values>
+      <basechoices />
+      <invalidValues>
+        <invalidValue>#</invalidValue>
+        <invalidValue>Pepa007</invalidValue>
+      </invalidValues>
+    </Parameter>
+    <Parameter id="1" name="LastName" type="1">
+      <values>
+        <value>Stanik</value>
+      </values>
+      <basechoices />
+      <invalidValues>
+        <invalidValue>#</invalidValue>
+        <invalidValue>zloduch$%</invalidValue>
+      </invalidValues>
+    </Parameter>
+    <Parameter id="2" name="Email" type="1">
+      <values>
+        <value>pepa.stanik@email.cz</value>
+      </values>
+      <basechoices />
+      <invalidValues>
+        <invalidValue>#</invalidValue>
+        <invalidValue>pepisek.cz</invalidValue>
+      </invalidValues>
+    </Parameter>
+    <Parameter id="4" name="Age" type="1">
+      <values>
+        <value>18</value>
+        <value>35</value>
+        <value>70</value>
+      </values>
+      <basechoices />
+      <invalidValues>
+        <invalidValue>#</invalidValue>
+        <invalidValue>3</invalidValue>
+        <invalidValue>200</invalidValue>
+      </invalidValues>
+    </Parameter>
+    <Parameter id="5" name="FlightId" type="1">
+      <values>
+        <value>caed89cf-b332-4634-95e0-7eddb8606170</value>
+      </values>
+      <basechoices />
+      <invalidValues>
+        <invalidValue>#</invalidValue>
+      </invalidValues>
+    </Parameter>
+    <Parameter id="6" name="Coupon" type="1">
+      <values>
+        <value>CHRISTMAS10</value>
+        <value>#</value>
+      </values>
+      <basechoices />
+      <invalidValues>
+        <invalidValue>random007</invalidValue>
+      </invalidValues>
+    </Parameter>
+    <Parameter id="7" name="Discount" type="1">
+      <values>
+        <value>Student</value>
+        <value>Senior</value>
+        <value>#</value>
+      </values>
+      <basechoices />
+      <invalidValues />
+    </Parameter>
+  </Parameters>
+  <OutputParameters />
+  <Relations />
+  <Constraints>
+    <Constraint text="(Discount = &quot;Student&quot;) =&gt; (Age = &quot;18&quot;)">
+      <Parameters>
+        <Parameter name="Discount" />
+        <Parameter name="Age" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(Discount = &quot;Senior&quot;) =&gt; (Age = &quot;70&quot;)">
+      <Parameters>
+        <Parameter name="Discount" />
+        <Parameter name="Age" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="FirstName != &quot;#&quot; &amp;&amp; FirstName != &quot;Pepa007&quot; &amp;&amp;&#xD;&#xA;LastName != &quot;#&quot; &amp;&amp; LastName != &quot;zloduch$%&quot; &amp;&amp;&#xD;&#xA;Email != &quot;#&quot; &amp;&amp; Email != &quot;pepisek.cz&quot; &amp;&amp;&#xD;&#xA;Age != &quot;#&quot; &amp;&amp; Age != &quot;3&quot; &amp;&amp; Age != &quot;200&quot; &amp;&amp;&#xD;&#xA;FlightId != &quot;#&quot; &amp;&amp;&#xD;&#xA;Coupon != &quot;random007&quot;">
+      <Parameters>
+        <Parameter name="FirstName" />
+        <Parameter name="FirstName" />
+        <Parameter name="LastName" />
+        <Parameter name="LastName" />
+        <Parameter name="Email" />
+        <Parameter name="Email" />
+        <Parameter name="Age" />
+        <Parameter name="Age" />
+        <Parameter name="Age" />
+        <Parameter name="FlightId" />
+        <Parameter name="Coupon" />
+      </Parameters>
+    </Constraint>
+  </Constraints>
+  <Testset doi="2">
+    <Testcase TCNo="0">
+      <Value>1</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>18</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>#</Value>
+      <Value>Student</Value>
+    </Testcase>
+    <Testcase TCNo="1">
+      <Value>2</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>18</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>CHRISTMAS10</Value>
+      <Value>#</Value>
+    </Testcase>
+    <Testcase TCNo="2">
+      <Value>3</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>35</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>#</Value>
+      <Value>#</Value>
+    </Testcase>
+    <Testcase TCNo="3">
+      <Value>4</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>70</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>CHRISTMAS10</Value>
+      <Value>Senior</Value>
+    </Testcase>
+    <Testcase TCNo="4">
+      <Value>5</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>70</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>#</Value>
+      <Value>#</Value>
+    </Testcase>
+    <Testcase TCNo="5">
+      <Value>6</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>18</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>CHRISTMAS10</Value>
+      <Value>Student</Value>
+    </Testcase>
+    <Testcase TCNo="6">
+      <Value>7</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>70</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>#</Value>
+      <Value>Senior</Value>
+    </Testcase>
+    <Testcase TCNo="7">
+      <Value>8</Value>
+      <Value>Pepa</Value>
+      <Value>Stanik</Value>
+      <Value>pepa.stanik@email.cz</Value>
+      <Value>35</Value>
+      <Value>caed89cf-b332-4634-95e0-7eddb8606170</Value>
+      <Value>CHRISTMAS10</Value>
+      <Value>#</Value>
+    </Testcase>
+  </Testset>
+  <Header>
+    <Value />
+    <Value>FIRSTNAME</Value>
+    <Value>LASTNAME</Value>
+    <Value>EMAIL</Value>
+    <Value>AGE</Value>
+    <Value>FLIGHTID</Value>
+    <Value>COUPON</Value>
+    <Value>DISCOUNT</Value>
+  </Header>
+  <Stat-Data>
+    <ExecutionTime>0.034</ExecutionTime>
+    <MaxDomainSize>3</MaxDomainSize>
+    <MinDomainSize>1</MinDomainSize>
+    <TotalNoOfCombination>55</TotalNoOfCombination>
+    <TotalNoOfTests>8</TotalNoOfTests>
+    <Algorithm>IPOG</Algorithm>
+  </Stat-Data>
+</System>
+

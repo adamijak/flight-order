@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 //using OpenQA.Selenium.Extensions;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium.Support.Extensions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebAppTest.PageObject
 {
@@ -43,10 +44,6 @@ namespace WebAppTest.PageObject
         }
         
         // page links
-        [FindsBy(How = How.CssSelector, Using = "a.nav-link.link-primary")]
-        [CacheLookup]
-        private IWebElement adamijak;
-
         [FindsBy(How = How.CssSelector, Using = "a.navbar-brand")]
         [CacheLookup]
         private IWebElement flightorder;
@@ -150,17 +147,7 @@ namespace WebAppTest.PageObject
             return this;
         }
  
-        // link clicks
-
-        /// <summary>
-        /// Click on Adamijak Link.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage ClickAdamijakLink()
-        {
-            adamijak.Click();
-            return this;
-        }
+        // menu link clicks
 
         /// <summary>
         /// Click on Flightorder Link.
@@ -208,7 +195,7 @@ namespace WebAppTest.PageObject
         /// Click on 2 Flight Selection Button.
         /// </summary>
         /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage ClickFlightSelectionButton()
+        public NewOrderPage ClickFlightSection()
         {
             flightSelection2.Click();
             return this;
@@ -218,7 +205,7 @@ namespace WebAppTest.PageObject
         /// Click on 3 Discount And Payment Button.
         /// </summary>
         /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage ClickDiscountAndPaymentButton()
+        public NewOrderPage ClickDiscountSection()
         {
             discountAndPayment3.Click();
             return this;
@@ -234,19 +221,53 @@ namespace WebAppTest.PageObject
             return this;
         }
 
+        // function to fill basic info at New Order page
+        public NewOrderPage FillBasicInformation(string firstName, string lastName, string email, string birthDate)
+        {
+            SetFirstNameTextField(firstName);
+            SetLastNameTextField(lastName);
+            SetEmailTextField(email);
+            SetBirthDateDateField(birthDate);
+            return this;
+        }
+
+        // function to fill flight information
+        public NewOrderPage FillFlightInformation(string from, string to, string flightDateTime)
+        {
+            SetFromDropDownListField(from);
+            SetToDropDownListField(to);
+            SetFlightDateField(flightDateTime);
+            return this;
+        }
+
+        public NewOrderPage FillDiscountInformation(string coupon, string discount)
+        {
+            SetCouponTextField(coupon);
+            SetDiscountDropDownListField(discount);
+            return this;
+        }
+
+        public NewOrderPage VerifyFirstFlightId(string expectedId) {
+            string firstFlightId = GetFirstFlightId();
+            //Console.WriteLine(firstFlightId);
+            Assert.AreEqual(expectedId, firstFlightId);
+            return this;
+        }
+
         /// <summary>
         /// Fill every fields in the page.
         /// </summary>
         /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage Fill()
+        public NewOrderPage Fill(string firstName, string lastName, string email, string birthDate, string id, string from, string to, string flightDateTime, string coupon, string discount)
         {
-            SetFirstNameTextField();
-            SetLastNameTextField();
-            SetEmailTextField();
-            SetFromDropDownListField();
-            SetToDropDownListField();
-            SetCouponTextField();
-            SetDiscountDropDownListField();
+            FillBasicInformation(firstName, lastName, email, birthDate);
+            ClickFlightSection();
+            FillFlightInformation(from, to, flightDateTime);
+            WaitForFlightsToLoad();
+            VerifyFirstFlightId(id);
+            SelectFirstFlight();
+            ClickDiscountSection();
+            FillDiscountInformation(coupon, discount);
             return this;
         }
 
@@ -254,9 +275,9 @@ namespace WebAppTest.PageObject
         /// Fill every fields in the page and submit it to target page.
         /// </summary>
         /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage FillAndSubmit()
+        public NewOrderPage FillAndSubmit(string firstName, string lastName, string email, string birthDate, string id, string from, string to, string flightDateTime, string coupon, string discount)
         {
-            Fill();
+            Fill(firstName, lastName, email, birthDate, id, from, to, flightDateTime, coupon, discount);
             return Submit();
         }
 
@@ -268,14 +289,6 @@ namespace WebAppTest.PageObject
             return errorList.Count;
         }
 
-        /// <summary>
-        /// Set default value to Coupon Text field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetCouponTextField()
-        {
-            return SetCouponTextField(data["COUPON"]);
-        }
 
         /// <summary>
         /// Set value to Coupon Text field.
@@ -283,17 +296,9 @@ namespace WebAppTest.PageObject
         /// <returns>The NewOrderPage class instance.</returns>
         public NewOrderPage SetCouponTextField(string couponValue)
         {
+            coupon.Clear();
             coupon.SendKeys(couponValue);
             return this;
-        }
-
-        /// <summary>
-        /// Set default value to Discount Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetDiscountDropDownListField()
-        {
-            return SetDiscountDropDownListField(data["DISCOUNT"]);
         }
 
         /// <summary>
@@ -302,7 +307,10 @@ namespace WebAppTest.PageObject
         /// <returns>The NewOrderPage class instance.</returns>
         public NewOrderPage SetDiscountDropDownListField(string discountValue)
         {
-            new SelectElement(discount).SelectByText(discountValue);
+            if (!String.IsNullOrEmpty(discountValue))
+            {
+                new SelectElement(discount).SelectByText(discountValue);
+            }
             return this;
         }
 
@@ -317,22 +325,19 @@ namespace WebAppTest.PageObject
             //birthDate = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("birthDate")));
             //((JavascriptExecutor)driver).executeScript("document.getElementById('dateofbirth').removeAttribute('readonly',0);");
             //birthDate.Click();
-            birthDate.SendKeys(birthDateValue); // IMPORTANT: this works only with well formated dates on input eg 1985-01-01
             //Console.WriteLine(birthDateValue);
             //driver.ExecuteJavaScript("arguments[0].value=arguments[1]", birthDate, birthDateValue);  
             //string output = driver.ExecuteJavaScript<string>("return arguments[0].placeholder", driver.FindElement(By.Id("birthDate")));
             //Console.WriteLine("Tady je outouteutoeutouetoteoeutoetuoetuoeto:");
             //Console.WriteLine(output);
+            if (!String.IsNullOrEmpty(birthDateValue))
+            {
+                DateTime birthDateDt = DateTime.Parse(birthDateValue);
+                birthDateValue = birthDateDt.ToString("yyyy-MM-dd");
+                birthDate.Clear();
+                birthDate.SendKeys(birthDateValue); // IMPORTANT: this works only with well formated dates on input eg 1985-01-01
+            }
             return this;
-        }
-
-        /// <summary>
-        /// Set default value to Email Text field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetEmailTextField()
-        {
-            return SetEmailTextField(data["EMAIL"]);
         }
 
         /// <summary>
@@ -340,18 +345,10 @@ namespace WebAppTest.PageObject
         /// </summary>
         /// <returns>The NewOrderPage class instance.</returns>
         public NewOrderPage SetEmailTextField(string emailValue)
-        {
+        {   
+            email.Clear();
             email.SendKeys(emailValue);
             return this;
-        }
-
-        /// <summary>
-        /// Set default value to First Name Text field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetFirstNameTextField()
-        {
-            return SetFirstNameTextField(data["FIRST_NAME"]);
         }
 
         /// <summary>
@@ -360,7 +357,19 @@ namespace WebAppTest.PageObject
         /// <returns>The NewOrderPage class instance.</returns>
         public NewOrderPage SetFirstNameTextField(string firstNameValue)
         {
+            firstName.Clear();  
             firstName.SendKeys(firstNameValue);
+            return this;
+        }
+
+        /// <summary>
+        /// Set value to Last Name Text field.
+        /// </summary>
+        /// <returns>The NewOrderPage class instance.</returns>
+        public NewOrderPage SetLastNameTextField(string lastNameValue)
+        {
+            lastName.Clear();
+            lastName.SendKeys(lastNameValue);
             return this;
         }
 
@@ -368,21 +377,19 @@ namespace WebAppTest.PageObject
         /// Set Flight Date Date field.
         /// </summary>
         /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetFlightDateDateField(string flightDateValue)
+        public NewOrderPage SetFlightDateField(string flightDateTimeValue)
         {
             //driver.ExecuteJavaScript("arguments[0].value=arguments[1]", flightDate, flightDateValue);
-            flightDate.Click();
-            flightDate.SendKeys(flightDateValue);
+            if (!String.IsNullOrEmpty(flightDateTimeValue))
+            {
+                // convert flight date 
+                DateTime dt = DateTime.Parse(flightDateTimeValue);
+                //DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                string flightDateValue = dt.ToString("yyyy-MM-dd");
+                flightDate.Click();
+                flightDate.SendKeys(flightDateValue);
+            }
             return this;
-        }
-
-        /// <summary>
-        /// Set default value to From Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetFromDropDownListField()
-        {
-            return SetFromDropDownListField(data["FROM"]);
         }
 
         /// <summary>
@@ -393,34 +400,6 @@ namespace WebAppTest.PageObject
         {
             new SelectElement(from).SelectByText(fromValue);
             return this;
-        }
-
-        /// <summary>
-        /// Set default value to Last Name Text field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetLastNameTextField()
-        {
-            return SetLastNameTextField(data["LAST_NAME"]);
-        }
-
-        /// <summary>
-        /// Set value to Last Name Text field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetLastNameTextField(string lastNameValue)
-        {
-            lastName.SendKeys(lastNameValue);
-            return this;
-        }
-
-        /// <summary>
-        /// Set default value to To Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage SetToDropDownListField()
-        {
-            return SetToDropDownListField(data["TO"]);
         }
 
         /// <summary>
@@ -455,6 +434,26 @@ namespace WebAppTest.PageObject
             return flightRows[0].FindElement(By.XPath("td[1]/div/input")).GetAttribute("value");
         }
 
+        public string GetFirstFlightFrom()
+        {
+            return flightRows[0].FindElement(By.XPath("td[2]")).Text;
+        }
+
+        public string GetFirstFlightTo()
+        {
+            return flightRows[0].FindElement(By.XPath("td[3]")).Text; 
+        }
+
+        public string GetFirstFlightDateTime()
+        {
+            return flightRows[0].FindElement(By.XPath("td[4]")).Text;
+        }
+
+        public string GetFirstFlightPrice()
+        {
+            return flightRows[0].FindElement(By.XPath("td[5]")).Text;
+        }
+
         public NewOrderPage SelectFirstFlight()
         {
             flightRows[0].FindElement(By.XPath("td[1]/div/input")).Click();
@@ -468,63 +467,6 @@ namespace WebAppTest.PageObject
         public NewOrderPage Submit()
         {
             ClickSubmitButton();
-            return this;
-        }
-
-        /// <summary>
-        /// Unset default value from Discount Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage UnsetDiscountDropDownListField()
-        {
-            return UnsetDiscountDropDownListField(data["DISCOUNT"]);
-        }
-
-        /// <summary>
-        /// Unset value from Discount Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage UnsetDiscountDropDownListField(string discountValue)
-        {
-            new SelectElement(discount).DeselectByText(discountValue);
-            return this;
-        }
-
-        /// <summary>
-        /// Unset default value from From Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage UnsetFromDropDownListField()
-        {
-            return UnsetFromDropDownListField(data["FROM"]);
-        }
-
-        /// <summary>
-        /// Unset value from From Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage UnsetFromDropDownListField(string fromValue)
-        {
-            new SelectElement(from).DeselectByText(fromValue);
-            return this;
-        }
-
-        /// <summary>
-        /// Unset default value from To Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage UnsetToDropDownListField()
-        {
-            return UnsetToDropDownListField(data["TO"]);
-        }
-
-        /// <summary>
-        /// Unset value from To Drop Down List field.
-        /// </summary>
-        /// <returns>The NewOrderPage class instance.</returns>
-        public NewOrderPage UnsetToDropDownListField(string toValue)
-        {
-            new SelectElement(to).DeselectByText(toValue);
             return this;
         }
     }
