@@ -29,6 +29,11 @@
 	  <None Remove="Data\ValidFlights.csv" />
 	  <None Remove="E2E\" />
 	  <None Remove="Unit\" />
+	  <None Remove="Data\" />
+	  <None Remove="Entities\" />
+	  <None Remove="Unit\FlightService\" />
+	  <None Remove="Integration\" />
+	  <None Remove="Integration\Api\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="geckodriver">
@@ -38,6 +43,11 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Unit\" />
+	  <Folder Include="Data\" />
+	  <Folder Include="Entities\" />
+	  <Folder Include="Unit\FlightService\" />
+	  <Folder Include="Integration\" />
+	  <Folder Include="Integration\Api\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Include="Data\FailNewOrderSubmit.csv">

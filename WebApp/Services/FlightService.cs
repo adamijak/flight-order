@@ -7,15 +7,12 @@ namespace WebApp.Services
 {
 	public class FlightService
 	{
-        private const int flightCount = 1000;
-        private readonly Random random = new Random();
-        private readonly string path;
+        private static readonly Random random = new();
 
         public IEnumerable<Flight> Flights { get; }
 
         public FlightService(string path)
 		{
-            this.path = path;
             using var stream = System.IO.File.OpenRead(path);
             var values = JsonSerializer.Deserialize<Flight[]>(stream, Globals.JsonSerializerOptions);
             if (values is null)
@@ -27,10 +24,9 @@ namespace WebApp.Services
 
         public Flight? GetFlight(string? id) => Flights.FirstOrDefault(i => string.Equals(i.Id, id, StringComparison.InvariantCultureIgnoreCase));
 
-        public void GenerateDataFile()
+        public static void GenerateDataFile(string path, DateTime startDateTime, int monthOffset, int flightCount = 1000, int priceMin = 100, int priceMax = 500)
         {
-            var dateTime = new DateTime(2023, 1, 1);
-            var offset = (long)(dateTime.AddMonths(1) - dateTime).TotalMinutes;
+            var offset = (long)(startDateTime.AddMonths(monthOffset) - startDateTime).TotalMinutes;
 
             var destinations = Enum.GetValues(typeof(Destination));
             var values = new List<Flight>(flightCount);
@@ -44,8 +40,8 @@ namespace WebApp.Services
                     Id = Guid.NewGuid().ToString(),
                     From = (Destination) from,
                     To = (Destination) to,
-                    DateTime = dateTime.AddMinutes(random.NextInt64(0, offset)),
-                    Price = random.Next(100, 500),
+                    DateTime = startDateTime.AddMinutes(random.NextInt64(0, offset)),
+                    Price = random.Next(priceMin, priceMax),
                 });
             }
 

@@ -7,7 +7,12 @@ namespace WebAppTest.Unit;
 public class Basic
 {
     [TestMethod]
-    public void DummyTest()
+    public void Dummy()
     {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 }
