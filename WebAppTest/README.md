@@ -104,57 +104,57 @@ We created a UML activity diagram for the software - https://drive.google.com/fi
 
 ## Test sketch
 Here we include a sketch for front-end tests:
-        - page navigation test
-	- flight search test
-		- are flights listed?
-		- check for combo where there should be flights 
-		- check for combo where there should not be flights
-		- include number in parameter of flights 
-		- steps 
-			- fill flight 
-			- check count (zatím, kdyztak zlepši pak)
-	- (repeated flight pick test? -pak)
-	- successfull submit test
-		- does it go to welcome, if no errors are made?
-			- all fields not null
-			- all fields valid
-			- discount valid
-		- all combos of input 
-		- parametrically set output
-		- steps
-			- fill new order 
-			- submit
-			- check welcome page
-	- unsuccessful submit test
-		- at least one error present
-	- order shown
-		- does it show created flights?
-		- steps
-			- visit orders
-			- check flight count 
-			- visit new order
-			- fill new order
-			- submit
-			- visit orders
-			- check flight count
-			- check first flight info
-				- possibly also final price
-	- order search 
-		- does it show only searched 
-		- steps
-			- new order Prague 
-			- submit 
-			- new order Krakow
-			- submit 
-			- visit orders
-			- search Prague
-			- check first flight from Prague
-	- order delete
-		- steps
-			- visit new order
-			- fill new order 
-			- submit 
-			- visit orders
-			- check flight count
-			- first flight delete
-			- check flight count
+- page navigation test
+- flight search test
+	- are flights listed?
+	- check for combo where there should be flights 
+	- check for combo where there should not be flights
+	- include number in parameter of flights 
+	- steps 
+		- fill flight 
+		- check count (zatím, kdyztak zlepši pak)
+- (repeated flight pick test? -pak)
+- successfull submit test
+	- does it go to welcome, if no errors are made?
+		- all fields not null
+		- all fields valid
+		- discount valid
+	- all combos of input 
+	- parametrically set output
+	- steps
+		- fill new order 
+		- submit
+		- check welcome page
+- unsuccessful submit test
+	- at least one error present
+- order shown
+	- does it show created flights?
+	- steps
+		- visit orders
+		- check flight count 
+		- visit new order
+		- fill new order
+		- submit
+		- visit orders
+		- check flight count
+		- check first flight info
+			- possibly also final price
+- order search 
+	- does it show only searched 
+	- steps
+		- new order Prague 
+		- submit 
+		- new order Krakow
+		- submit 
+		- visit orders
+		- search Prague
+		- check first flight from Prague
+- order delete
+	- steps
+		- visit new order
+		- fill new order 
+		- submit 
+		- visit orders
+		- check flight count
+		- first flight delete
+		- check flight count
