@@ -1,7 +1,6 @@
 FirstName,LastName,Email,Age,FlightId,Coupon,Discount
 Pepa,Stanik,pepa.stanik@email.cz,18,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Senior
 Pepa,Stanik,pepa.stanik@email.cz,35,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
-Pepa,Stanik,pepa.stanik@email.cz,70,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Senior
 Pepa,Stanik,pepa.stanik@email.cz,18,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
 Pepa,Stanik,pepa.stanik@email.cz,70,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
 Pepa,Stanik,pepa.stanik@email.cz,35,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Senior
@@ -14,12 +13,8 @@ Pepa,#,pepa.stanik@email.cz,35,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,
 Pepa,zloduch$%,pepa.stanik@email.cz,70,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
 Pepa,Stanik,#,35,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
 Pepa,Stanik,pepisek.cz,35,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
-Pepa,Stanik,pepa.stanik@email.cz,18,caed89cf-b332-4634-95e0-7eddb8606170,#,Student
 Pepa,Stanik,pepa.stanik@email.cz,18,caed89cf-b332-4634-95e0-7eddb8606170,random007,Senior
 Pepa,Stanik,pepa.stanik@email.cz,#,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
 Pepa,Stanik,pepa.stanik@email.cz,200,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Student
 Pepa,Stanik,pepa.stanik@email.cz,3,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,Senior
-Pepa,Stanik,pepa.stanik@email.cz,18,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,#
-Pepa,Stanik,pepa.stanik@email.cz,35,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,#
-Pepa,Stanik,pepa.stanik@email.cz,70,caed89cf-b332-4634-95e0-7eddb8606170,CHRISTMAS10,#
 Pepa,Stanik,pepa.stanik@email.cz,35,#,CHRISTMAS10,Senior

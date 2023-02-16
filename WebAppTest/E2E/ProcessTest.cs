@@ -213,9 +213,20 @@ public class ProcessTest
         driver.Navigate().GoToUrl("http://localhost/Orders/Create");
         var newOrderPage = VerifiedNewOrderPage();
         // STEPS
-        //newOrderPage.FillAndSubmit(firstName, lastName, email, birthDate, id, "Prague", "Krakow", "2023-01-01", coupon, discount);
+        newOrderPage.FillBasicInformation(firstName, lastName, email, birthDate);
+        newOrderPage.ClickFlightSection();
+        newOrderPage.FillFlightInformation("Prague", "Krakow", "2023-01-01T19:19:00");
+        newOrderPage.WaitForFlightsToLoad();
+        if (!String.IsNullOrEmpty(id))
+        {
+            newOrderPage.VerifyFirstFlightId(id);
+            newOrderPage.SelectFirstFlight();
+        }
+        newOrderPage.ClickDiscountSection();
+        newOrderPage.FillDiscountInformation(coupon, discount);
+        newOrderPage.Submit();
         // EXPECTED RESULT
-        //var welcomePage = VerifiedWelcomePage();
+        Console.WriteLine(newOrderPage.GetErrorMessagesCount());
     }
 
     [TestCleanup]
