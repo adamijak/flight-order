@@ -7,6 +7,10 @@ using OpenQA.Selenium.Support.UI;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
+using WebApp.Entities;
+using System.Threading;
+using SeleniumExtras.WaitHelpers;
 
 namespace WebAppTest.E2E;
 
@@ -124,7 +128,7 @@ public class ProcessTest
     [TestMethod]
     //[DataRow("pepa", "dvorak", "pepa.dvorak@email.cz", "1999-08-20", "caed89cf-b332-4634-95e0-7eddb8606170", "Prague", "Krakow", "2023-01-01T19:19:00Z", "460", "", "Student" )]
     [DynamicData(nameof(GetValidData), DynamicDataSourceType.Method)]
-    //    [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @".\Data\TestData.csv", "TestData#csv", DataAccessMethod.Sequential)]  // NOT INCLUDED IN .NET CORE
+    //[DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @".\Data\TestData.csv", "TestData#csv", DataAccessMethod.Sequential)]  // NOT INCLUDED IN .NET CORE
     public void SuccesfulNewOrderSubmitTest(string firstName, string lastName, string email, string age, string id, string coupon, string discount)
     {
         // INIT
@@ -149,33 +153,7 @@ public class ProcessTest
         // STEPS
         newOrderPage.FillAndSubmit(firstName, lastName, email, birthDate, id, "Prague", "Krakow", "2023-01-01", coupon, discount);
         // EXPECTED RESULT
-        var welcomePage = VerifiedWelcomePage();
-
-
-        // verify the order was created
-        //var welcomePage = new WelcomePage(driver, 10);
-        //welcomePage.VerifyPageUrl();
-        //welcomePage.VerifyPageLoaded();
-        //welcomePage.ClickOrdersLink();
-        //var ordersPage = new OrdersPage(driver, 10);
-        //ordersPage.VerifyPageUrl();
-        //ordersPage.VerifyPageLoaded();
-        //ordersPage.Search(firstName);
-        //Assert.AreEqual(firstName, ordersPage.GetFirstFlightFirstName());  // td element is stale
-        //Assert.AreEqual(lastName, ordersPage.GetFirstFlightLastName());
-        //Assert.AreEqual(email, ordersPage.GetFirstFlightEmail());
-        //DateTime birthDateDt = DateTime.Parse(birthDate);
-        //var expectedBirthDate = birthDateDt.ToString("yyyy-MM-dd");
-        //Assert.AreEqual(expectedBirthDate, ordersPage.GetFirstFlightBirthDate());
-        //Assert.AreEqual(from, ordersPage.GetFirstFlightFrom());
-        //Assert.AreEqual(to, ordersPage.GetFirstFlightTo());
-        //Assert.AreEqual(flightDateTime, ordersPage.GetFirstFlightDateTime());
-        //Assert.AreEqual(price, ordersPage.GetFirstFlightPrice());
-        //Assert.AreEqual(coupon, ordersPage.GetFirstFlightCoupon());
-        //Assert.AreEqual(discount, ordersPage.GetFirstFlightDiscount());
-        
-        //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-        //IWebElement firstResult = wait.Until(e => e.FindElement(By.XPath("//asja")));
+        VerifiedWelcomePage();
 
     }
 
@@ -228,6 +206,60 @@ public class ProcessTest
         // EXPECTED RESULT
         Console.WriteLine(newOrderPage.GetErrorMessagesCount());
     }
+
+    [TestMethod]
+    public void DeleteFirstOrder()
+    {
+        // PRECONDITIONS
+        // create new order
+        driver.Navigate().GoToUrl("http://localhost/Orders/Create");
+        var newOrderPage = VerifiedNewOrderPage();
+        newOrderPage.FillAndSubmit("Karel", "Krason", "henlo@email.cz", "1945-01-01", "caed89cf-b332-4634-95e0-7eddb8606170", "Prague", "Krakow", "2023-01-01T19:19:00", "", "Senior");
+        var welcomePage = VerifiedWelcomePage();
+        welcomePage.ClickOrdersLink();
+        var ordersPage = VerifiedOrdersPage();
+        // STEPS
+        int prev = ordersPage.GetOrderCount();
+        ordersPage.DeleteFirstFlight();
+        int next = ordersPage.GetOrderCount();
+        // EXPECTED
+        Assert.AreEqual(prev - 1, next);
+    }
+
+    //[TestMethod]
+    //[DataRow("Karel", "Krason", "henlo@email.cz", "1945-01-01", "caed89cf-b332-4634-95e0-7eddb8606170", "Prague", "Krakow", "2023-01-01T19:19:00", "460", "", "Senior")]
+    //public void SeeCreatedOrderTest(string firstName, string lastName, string email, string birthDate, string id, string from, string to, string flightDateTime, string price, string coupon, string discount)
+    //{
+    //    // PRECONDITIONS
+    //    // create new order
+    //    driver.Navigate().GoToUrl("http://localhost/Orders");
+    //    var ordersPage = VerifiedOrdersPage();
+    //    while (ordersPage.GetOrderCount() > 0)
+    //    {
+    //        ordersPage.GetFirstFlightFrom();
+    //        ordersPage.DeleteFirstFlight();
+    //    }
+    //    ordersPage.ClickNewOrderLink();
+    //    var newOrderPage = VerifiedNewOrderPage();
+    //    // STEPS
+    //    newOrderPage.FillAndSubmit(firstName, lastName, email, birthDate, id, from, to, flightDateTime, coupon, discount); 
+    //    var welcomePage = VerifiedWelcomePage();
+    //    welcomePage.ClickOrdersLink();
+    //    ordersPage = VerifiedOrdersPage();
+    //    // EXPECTED RESULT
+    //    Assert.AreEqual(firstName, ordersPage.GetFirstFlightFirstName());  // td element is stale
+    //    Assert.AreEqual(lastName, ordersPage.GetFirstFlightLastName());
+    //    Assert.AreEqual(email, ordersPage.GetFirstFlightEmail());
+    //    DateTime birthDateDt = DateTime.Parse(birthDate);
+    //    var expectedBirthDate = birthDateDt.ToString("yyyy-MM-dd");
+    //    Assert.AreEqual(expectedBirthDate, ordersPage.GetFirstFlightBirthDate());
+    //    Assert.AreEqual(from, ordersPage.GetFirstFlightFrom());
+    //    Assert.AreEqual(to, ordersPage.GetFirstFlightTo());
+    //    Assert.AreEqual(flightDateTime, ordersPage.GetFirstFlightDateTime());
+    //    Assert.AreEqual(price, ordersPage.GetFirstFlightPrice());
+    //    Assert.AreEqual(coupon, ordersPage.GetFirstFlightCoupon());
+    //    Assert.AreEqual(discount, ordersPage.GetFirstFlightDiscount());
+    //}
 
     [TestCleanup]
     public void Cleanup()

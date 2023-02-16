@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SeleniumExtras.WaitHelpers;
+using OpenQA.Selenium.Extensions;
 
 namespace WebAppTest.PageObject
 {
@@ -140,6 +141,14 @@ namespace WebAppTest.PageObject
             return this;
         }
 
+        public int GetOrderCount()
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            var table = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//table")));
+            flightRows = driver.FindElements(By.XPath("//table/tbody/tr"));
+            return flightRows.Count;
+        }
+
         // search
 
         /// <summary>
@@ -151,7 +160,7 @@ namespace WebAppTest.PageObject
             search.SendKeys(text);
             search.SendKeys(Keys.Enter);
 
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
             var table = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//table")));
             firstFlight = driver.FindElement(By.XPath("//table/tbody/tr[1]"));
             return this;
