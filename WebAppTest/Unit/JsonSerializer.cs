@@ -17,7 +17,7 @@ public class JsonSerializer
         var obj = new DummyClass{ DummyEnum = DummyEnum.Two };
 
         // Act
-        var actual = System.Text.Json.JsonSerializer.Serialize(obj, Globals.JsonSerializerOptions);
+        var actual = System.Text.Json.JsonSerializer.Serialize(obj, Common.Globals.JsonSerializerOptions);
 
         // Assert
         Assert.AreEqual(expected, actual);
@@ -31,7 +31,7 @@ public class JsonSerializer
         var json = "{\"dummyEnum\":\"Two\"}";
 
         // Act
-        var actual = System.Text.Json.JsonSerializer.Deserialize<DummyClass>(json, Globals.JsonSerializerOptions);
+        var actual = System.Text.Json.JsonSerializer.Deserialize<DummyClass>(json, Common.Globals.JsonSerializerOptions);
 
         // Assert
         Assert.AreEqual(expected.Id, actual.Id);

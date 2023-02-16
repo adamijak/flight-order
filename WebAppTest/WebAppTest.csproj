@@ -26,6 +26,8 @@
 	  <None Remove="Data\" />
 	  <None Remove="Entities\" />
 	  <None Remove="Unit\FlightService\" />
+	  <None Remove="Integration\" />
+	  <None Remove="Integration\Api\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="geckodriver">
@@ -39,5 +41,7 @@
 	  <Folder Include="Data\" />
 	  <Folder Include="Entities\" />
 	  <Folder Include="Unit\FlightService\" />
+	  <Folder Include="Integration\" />
+	  <Folder Include="Integration\Api\" />
 	</ItemGroup>
 </Project>
